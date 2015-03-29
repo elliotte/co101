@@ -1,9 +1,22 @@
 class Company
 	
-	def initialize(formation_docs=nil)
+	def initialize(formation_docs=false)
 		if !formation_docs
 			raise CompanyErrors::Formation.new("---Need documents and stuff, ----run .need_to_start? method on Company class model")
+		else
+			puts "run what_now? as company instance method"
 		end	
+	end
+
+	def what_now?
+		puts "go to here and fill out all the docs"
+		puts "https://www.gov.uk/register-a-company-online"
+		puts "run what_else?"
+	end
+
+	def what_else?
+		puts "You need to setup corporation tax and notify HMRC, first step is UTR setup"
+		puts "https://online.hmrc.gov.uk/registration/newbusiness/introduction"
 	end
 
 	def self.setup_basics
@@ -50,7 +63,7 @@ class Company
 	  	$stdout << "DO YOU HAVE THE BASICS READY, YES OR NO?"
 	  	user_input = gets.chomp
 	  	if user_input == "YES"
-	  		puts "Excellent"
+	  		puts "Excellent, now create a new company instance passing in a true argument"
 	  	else
 	  		puts "Keeping going, you'll get there"
 	  	end
@@ -111,6 +124,10 @@ module Help
 
 		def self.starting_steps_non_model
 			"If not using model articles, download IN01 Application to register a company: https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/288271/IN01_application_to_register_a_company.pdf"
+		end
+
+		def self.tax
+			"YOU need to register with HMRC and get UTR (Unique tax reference number) https://online.hmrc.gov.uk/registration/newbusiness/introduction"
 		end
 
 	end

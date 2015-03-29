@@ -4,7 +4,7 @@ RSpec.describe Company do
 
   context "with no startup information" do
     
-    it "raise an error as you cannot start a company" do
+    it "raises an error as you cannot start a company without basics" do
         expect { Company.new }.to raise_error CompanyErrors::Formation
     end
     it 'tells you to run print setup basics for more info' do
@@ -30,7 +30,7 @@ RSpec.describe Company do
     end
     it 'basics are ready? method user YES returns excellent' do
         Company.stub(:gets).and_return("YES")
-        STDOUT.should_receive(:puts).with("Excellent")
+        STDOUT.should_receive(:puts).with("Excellent, now create a new company instance passing in a true argument")
         Company.basics_ready?
     end
     it 'BAR? method user NO returns Keeping going' do
@@ -40,6 +40,23 @@ RSpec.describe Company do
     end
 
   end#end of startup no info context  
+
+  context "with start up information" do
+    let(:company) { Company.new(true) }
+    it "instructs to run what now new instance" do
+        STDOUT.should_receive(:puts).with("run what_now? as company instance method")
+        Company.new(true)
+    end
+
+    it 'puts 3 lines of instructions' do
+        STDOUT.should_receive(:puts).at_least(3)
+        company.what_now?
+    end
+    it 'puts 2 lines of instructions' do
+        STDOUT.should_receive(:puts).at_least(2)
+        company.what_else?
+    end
+  end
 
 end
 
